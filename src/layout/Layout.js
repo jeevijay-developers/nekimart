@@ -17,7 +17,7 @@ const Layout = ({ title, description, children }) => {
 
       <div className="font-sans">
         <Head>
-          <title>{title ? `ocentury | ${title}` : "ocentury "}</title>
+          <title>{title ? `Nekimart | ${title}` : "Nekimart"}</title>
           {description && <meta name="description" content={description} />}
           <link ref="icon" href="logo/logo.png" />
         </Head>

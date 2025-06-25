@@ -441,7 +441,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="text-customPink"
           >
-            ocentury
+            Nekimart
           </Link>
           , All rights reserved.
         </p>

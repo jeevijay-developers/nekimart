@@ -20,7 +20,7 @@ class MyDocument extends Document {
           <meta
             property="og:title"
             content={
-              setting?.meta_title || "ocentury - clothing Store "
+              setting?.meta_title || "Nekimart Store "
             }
           />
           <meta property="og:type" content="eCommerce Website" />
@@ -36,7 +36,7 @@ class MyDocument extends Document {
           />
           <meta
             property="og:url"
-            content={setting?.meta_url || "https://www.ocentury.in"}
+            content={setting?.meta_url || "https://www.nekimart.com"}
           />
           <meta
             property="og:image"
