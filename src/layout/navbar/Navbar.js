@@ -138,8 +138,9 @@ const Navbar = () => {
           {/* Navigation Items - Below Logo */}
         </div>
         {/* Navigation Items */}
-        <div className="hidden lg:flex items-center justify-center py-3 absolute z-[41] bg-transparent w-full space-x-6 hover:bg-white transition-colors duration-500 ease-in-out mx-auto"
-             style={{ backgroundColor: "#ff5c00" }}
+        <div
+          className="hidden lg:flex items-center justify-center py-3 absolute z-[41] bg-transparent w-full space-x-6 hover:bg-white transition-colors duration-500 ease-in-out mx-auto"
+          style={{ backgroundColor: "#ff5c00" }}
         >
           <Link
             href="/"
@@ -160,7 +161,8 @@ const Navbar = () => {
           )}
           {/* {storeCustomizationSetting?.navbar?.categories_menu_status && ( */}
           <Popover className="relative">
-            <Popover.Button className="font-montserrat group inline-flex items-center text-white hover:text-black-200 text-lg font-medium focus:outline-none  after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full">
+            <Popover.Button className="font-montserrat group inline-flex items-center text-white  hover:text-gray-700 text-lg font-medium focus:outline-none after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:bg-[#192A56]">
+              {" "}
               <span>
                 {showingTranslateValue(
                   storeCustomizationSetting?.navbar?.categories

@@ -89,8 +89,8 @@ const Home = ({ popularProducts, discountProducts, attributes }) => {
             </div>
 
             {/* feature category's */}
-            {storeCustomizationSetting?.home?.featured_status && (
-              // <div className="bg-gray-100 lg:py-16 py-10"> removed this part with below part
+            {/* {storeCustomizationSetting?.home?.featured_status && (
+              
               <div className="bg-gray-100 ">
                 <div className="mx-auto max-w-screen-2xl px-3 sm:px-10">
                   <div className="mb-10 flex justify-center">
@@ -103,24 +103,14 @@ const Home = ({ popularProducts, discountProducts, attributes }) => {
                           data={storeCustomizationSetting?.home?.feature_title}
                         />
                       </h2>
-                      {/* <p className="text-base font-sans text-gray-600 leading-6">
-                        <CMSkeleton
-                          count={4}
-                          height={10}
-                          error={error}
-                          loading={loading}
-                          data={
-                            storeCustomizationSetting?.home?.feature_description
-                          }
-                        />
-                      </p> */}
+                    
                     </div>
                   </div>
 
-                  {/* <FeatureCategory /> */}
+                  
                 </div>
               </div>
-            )}
+            )} */}
 
             {/* popular products */}
             {storeCustomizationSetting?.home?.popular_products_status && (
