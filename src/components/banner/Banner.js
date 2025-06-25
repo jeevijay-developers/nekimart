@@ -13,7 +13,7 @@ const Banner = () => {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="font-serif text-xl">
-            <span className="text-customPink font-bold">
+            <span className="text-customColor font-bold">
               {showingTranslateValue(
                 storeCustomizationSetting?.home?.promotion_title
               )}
@@ -28,7 +28,7 @@ const Banner = () => {
         </div>
         <Link
           href={`${storeCustomizationSetting?.home?.promotion_button_link}`}
-          className="text-sm font-serif font-medium px-6 py-2 bg-customPink text-center rounded-full text-white hover:customPinkDark"
+          className="text-sm font-serif font-medium px-6 py-2 bg-customColor text-center rounded-full text-white hover:customColorDark"
         >
           {showingTranslateValue(
             storeCustomizationSetting?.home?.promotion_button_name

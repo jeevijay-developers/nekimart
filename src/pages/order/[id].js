@@ -82,8 +82,13 @@ const Order = ({ params }) => {
         queryClient.invalidateQueries(["order"]);
       })
       .catch((err) => {
-        notifyError(err?.response?.data?.message || "Error while requesting return!");
-        console.log("Error while requesting return:", err?.response?.data?.message);
+        notifyError(
+          err?.response?.data?.message || "Error while requesting return!"
+        );
+        console.log(
+          "Error while requesting return:",
+          err?.response?.data?.message
+        );
       });
   };
 
@@ -156,7 +161,7 @@ const Order = ({ params }) => {
                 data?.status === "Return Requested"
                   ? "block"
                   : "hidden"
-              } p-3 cursor-pointer bg-customPink rounded-2xl text-white  hover:bg-blue-700`}
+              } p-3 cursor-pointer bg-customColor rounded-2xl text-white  hover:bg-blue-700`}
             >
               cancel Order
             </button> */}

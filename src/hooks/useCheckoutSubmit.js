@@ -69,39 +69,37 @@ const useCheckoutSubmit = (storeSetting) => {
     formState: { errors },
   } = useForm();
 
-
-  
   // Watch the zipCode field to trigger the API call when it changes
   const zipCode = watch("zipCode");
 
-   useEffect(() => {
-     const fetchLocationDetails = async () => {
-       if (zipCode && zipCode.length >= 6) {
-         try {
-           const response = await fetch(
-             `https://api.postalpincode.in/pincode/${zipCode}`
-           );
-           if (!response.ok) {
-             throw new Error("Invalid zip code or no data available");
-           }
-           const data = await response.json();
-           const place = data[0]?.PostOffice[0];
+  useEffect(() => {
+    const fetchLocationDetails = async () => {
+      if (zipCode && zipCode.length >= 6) {
+        try {
+          const response = await fetch(
+            `https://api.postalpincode.in/pincode/${zipCode}`
+          );
+          if (!response.ok) {
+            throw new Error("Invalid zip code or no data available");
+          }
+          const data = await response.json();
+          const place = data[0]?.PostOffice[0];
           //  console.log("place", place);
 
-           // Update form fields with the fetched data
-           setValue("city", place["District"], { shouldValidate: true });
-           setValue("state", place["State"], { shouldValidate: true });
-           setValue("country", place["Country"], { shouldValidate: true }); 
-         } catch (error) {
-           console.error("Failed to fetch location details:", error);
-       
-          //  notifyError("Invalid zip code or no data available");
-         }
-       }
-     };
+          // Update form fields with the fetched data
+          setValue("city", place["District"], { shouldValidate: true });
+          setValue("state", place["State"], { shouldValidate: true });
+          setValue("country", place["Country"], { shouldValidate: true });
+        } catch (error) {
+          console.error("Failed to fetch location details:", error);
 
-     fetchLocationDetails();
-   }, [zipCode]);
+          //  notifyError("Invalid zip code or no data available");
+        }
+      }
+    };
+
+    fetchLocationDetails();
+  }, [zipCode]);
 
   // another way to fetch location details using zip code
   //  useEffect(() => {
@@ -120,10 +118,10 @@ const useCheckoutSubmit = (storeSetting) => {
   //          // Update form fields with the fetched data
   //          setValue("city", place["place name"], { shouldValidate: true });
   //          setValue("state", place["state"], { shouldValidate: true });
-  //          setValue("country", "India", { shouldValidate: true }); 
+  //          setValue("country", "India", { shouldValidate: true });
   //        } catch (error) {
   //          console.error("Failed to fetch location details:", error);
-       
+
   //         //  notifyError("Invalid zip code or no data available");
   //        }
   //      }
@@ -377,7 +375,7 @@ const useCheckoutSubmit = (storeSetting) => {
         key: settings?.razorpay_id,
         amount,
         currency,
-        name: "O'Century Store",
+        name: "Nekimart Store",
         description: "This is the total cost of your purchase",
         order_id: id,
         handler: async (response) => {
