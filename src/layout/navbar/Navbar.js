@@ -54,7 +54,7 @@ const Navbar = () => {
       <CartDrawer />
       <div className="top-0 z-40">
         <div className="max-w-screen-2xl mx-auto px-3 sm:px-10 relative">
-          <div className="flex  flex-col items-center py-1">
+          <div className="flex flex-col items-center py-0">
             {/* Top Section - Logo and Icons */}
             <div className="w-full grid grid-cols-3 items-center justify-between">
               {/* Logo Section - Left */}
@@ -71,14 +71,14 @@ const Navbar = () => {
                   </span>
                 </button>
               </div>
-              <div className="w-24 sm:w-28 mx-auto flex items-center justify-center">
+              <div className="w-20 sm:w-24 mx-auto flex items-center justify-center">
                 <Link href="/">
                   <img
-                    width={60}
-                    height={60}
-                    className="w-full h-auto "
+                    width={80}
+                    height={40}
+                    className="w-full h-auto"
                     priority
-                    src="/logo/gray-logo.png"
+                    src="/logo/logoneki.png"
                     alt="logo"
                   />
                 </Link>
@@ -138,10 +138,12 @@ const Navbar = () => {
           {/* Navigation Items - Below Logo */}
         </div>
         {/* Navigation Items */}
-        <div className="hidden lg:flex items-center justify-center py-3 absolute z-[41] bg-transparent w-full space-x-6 hover:bg-white transition-colors duration-500 ease-in-out mx-auto">
+        <div className="hidden lg:flex items-center justify-center py-3 absolute z-[41] bg-transparent w-full space-x-6 hover:bg-white transition-colors duration-500 ease-in-out mx-auto"
+             style={{ backgroundColor: "#ff5c00" }}
+        >
           <Link
             href="/"
-            className="font-montserrat relative text-[#192A56] hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+            className="font-montserrat relative text-white hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full"
           >
             {showingTranslateValue(storeCustomizationSetting?.navbar?.home) ||
               "Home"}
@@ -149,7 +151,7 @@ const Navbar = () => {
           {storeCustomizationSetting?.navbar?.about_menu_status && (
             <Link
               href="/about-us"
-              className="font-montserrat relative text-[#192A56] hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+              className="font-montserrat relative text-white hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full"
             >
               {showingTranslateValue(
                 storeCustomizationSetting?.navbar?.about_us
@@ -158,7 +160,7 @@ const Navbar = () => {
           )}
           {/* {storeCustomizationSetting?.navbar?.categories_menu_status && ( */}
           <Popover className="relative">
-            <Popover.Button className="font-montserrat group inline-flex items-center text-[#192A56] hover:text-black-200 text-lg font-medium focus:outline-none  after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full">
+            <Popover.Button className="font-montserrat group inline-flex items-center text-white hover:text-black-200 text-lg font-medium focus:outline-none  after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full">
               <span>
                 {showingTranslateValue(
                   storeCustomizationSetting?.navbar?.categories
@@ -190,7 +192,7 @@ const Navbar = () => {
           {storeCustomizationSetting?.navbar?.contact_menu_status && (
             <Link
               href="/contact-us"
-              className="font-montserrat relative text-[#192A56] hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full "
+              className="font-montserrat relative text-white hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full "
             >
               {showingTranslateValue(
                 storeCustomizationSetting?.navbar?.contact_us
@@ -200,7 +202,7 @@ const Navbar = () => {
           {storeCustomizationSetting?.navbar?.privacy_policy_status && (
             <Link
               href="/privacy-policy"
-              className="font-montserrat relative text-[#192A56] hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+              className="font-montserrat relative text-white hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full"
             >
               {showingTranslateValue(
                 storeCustomizationSetting?.navbar?.privacy_policy
@@ -210,7 +212,7 @@ const Navbar = () => {
           {storeCustomizationSetting?.navbar?.term_and_condition_status && (
             <Link
               href="/terms-and-conditions"
-              className="font-montserrat relative text-[#192A56] hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+              className="font-montserrat relative text-white hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full"
             >
               {showingTranslateValue(
                 storeCustomizationSetting?.navbar?.term_and_condition
@@ -220,7 +222,7 @@ const Navbar = () => {
           {
             <Link
               href="/Cancellation-and-Refund"
-              className="font-montserrat relative text-[#192A56] hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+              className="font-montserrat relative text-white hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full"
             >
               {/* {showingTranslateValue(
                 storeCustomizationSetting?.navbar?.cancellation_and_Refund
