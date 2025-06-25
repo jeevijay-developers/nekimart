@@ -37,7 +37,7 @@ const Category = () => {
   return (
     <div className="flex flex-col w-full h-full bg-white cursor-pointer scrollbar-hide">
       {categoryDrawerOpen && (
-        <div className="w-full flex justify-between items-center h-16 px-6 py-2 bg-customPink text-white border-b border-gray-100">
+        <div className="w-full flex justify-between items-center h-16 px-6 py-2 bg-customColor text-white border-b border-gray-100">
           <h2 className="font-semibold font-serif text-lg m-0 text-heading flex items-center">
             <Link href="/" className="mr-6 h-full">
               <img
@@ -95,7 +95,7 @@ const Category = () => {
                 <button
                   key={item.title}
                   onClick={() => handlePageClick(item.href)}
-                  className="p-2 flex font-serif items-center rounded-md hover:bg-gray-50 w-full hover:text-customPink text-left"
+                  className="p-2 flex font-serif items-center rounded-md hover:bg-gray-50 w-full hover:text-customColor text-left"
                 >
                   <item.icon
                     className="flex-shrink-0 h-4 w-4"

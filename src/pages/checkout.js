@@ -97,8 +97,6 @@ const Checkout = () => {
   //   );
   // };
 
-
-
   return (
     <>
       <Layout title="Checkout" description="this is checkout page">
@@ -261,7 +259,7 @@ const Checkout = () => {
                       {/* <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                         <button
                           type="button"
-                          className="py-2.5 px-6 text-sm bg-customPink text-white rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-customPinkDark"
+                          className="py-2.5 px-6 text-sm bg-customColor text-white rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-customColorDark"
                           onClick={handleOpenMap}
                         >
                           Add location

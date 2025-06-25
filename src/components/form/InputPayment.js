@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const InputPayment = ({ register, Icon, name, value, setShowCard }) => {
   return (
@@ -14,14 +14,14 @@ const InputPayment = ({ register, Icon, name, value, setShowCard }) => {
             </h6>
           </div>
           <input
-            onClick={() => setShowCard(value === 'Card' ? true : false)}
-            {...register('paymentMethod', {
-              required: 'Payment Method is required!',
+            onClick={() => setShowCard(value === "Card" ? true : false)}
+            {...register("paymentMethod", {
+              required: "Payment Method is required!",
             })}
             type="radio"
             value={value}
             name="paymentMethod"
-            className="form-radio outline-none focus:ring-0 text-customPink"
+            className="form-radio outline-none focus:ring-0 text-customColor"
           />
         </div>
       </label>

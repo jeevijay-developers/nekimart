@@ -403,7 +403,7 @@ const Footer = () => {
                   <p className="text-base leading-7 font-medium block">
                     {t("common:footer-call-us")}
                   </p>
-                  <h5 className="text-2xl font-bold text-customPink leading-7">
+                  <h5 className="text-2xl font-bold text-customColor leading-7">
                     {/* +012345-67900 */}
                     {storeCustomizationSetting?.footer?.bottom_contact}
                   </h5>
@@ -439,7 +439,7 @@ const Footer = () => {
             href="https://themeforest.net/user/htmllover"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-customPink"
+            className="text-customColor"
           >
             Nekimart
           </Link>

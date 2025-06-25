@@ -49,10 +49,8 @@ const PrivacyPolicy = () => {
           <CMSkeleton count={15} height={15} loading={loading} /> */}
           <div className="bg-white min-h-screen  px-4 sm:px-10">
             <div className="max-w-4xl mx-auto text-gray-800 font-sans">
-           
-
               <p className="mb-6">
-                At <strong>O'Century</strong>, a division of Kota Textiles, we
+                At <strong>Nekimart</strong>, a division of Kota Textiles, we
                 are committed to providing premium cotton fabrics and a seamless
                 shopping experience. We understand that sometimes plans change.
                 This policy outlines how we handle cancellations, refunds, and
@@ -140,7 +138,7 @@ const PrivacyPolicy = () => {
                 </a>
               </p>
               <p>
-                <strong>Address:</strong> O'Century, 5-C/A, Vallabhbari,
+                <strong>Address:</strong> Nekimart, 5-C/A, Vallabhbari,
                 Gumanpura, Behind Central Square Mall, Kota, Rajasthan. 324007
               </p>
             </div>

@@ -158,7 +158,7 @@ const ProductCard = ({ product, attributes }) => {
                     item.id === product._id && (
                       <div
                         key={item.id}
-                        className="h-7 sm:h-9 w-auto flex flex-nowrap items-center justify-evenly py-1 px-2 bg-customPink text-white rounded"
+                        className="h-7 sm:h-9 w-auto flex flex-nowrap items-center justify-evenly py-1 px-2 bg-customColor text-white rounded"
                       >
                         <button
                           onClick={() =>
@@ -189,7 +189,7 @@ const ProductCard = ({ product, attributes }) => {
               <button
                 onClick={() => handleAddItem(product)}
                 aria-label="cart"
-                className="h-7 w-7 sm:h-9 sm:w-9 flex items-center justify-center border border-gray-200 rounded text-customPink hover:border-customPinkDark hover:bg-customPinkDark hover:text-white transition-all"
+                className="h-7 w-7 sm:h-9 sm:w-9 flex items-center justify-center border border-gray-200 rounded text-customColor hover:border-customColorDark hover:bg-customColorDark hover:text-white transition-all"
               >
                 {" "}
                 <span className="text-lg sm:text-xl">
@@ -236,7 +236,7 @@ const ProductCard = ({ product, attributes }) => {
             <div className="absolute -bottom-2 left-[45%] h-0 w-fit border-l-8 border-r-8 border-t-8 border-transparent border-t-gray-100" />
           </div>
           <div
-            className={`relative border-4 border-gray-50 bg-gradient-to-r from-customPink to-customPink p-2 rounded-full transition-all duration-300 ease-in-out shadow-gray-300/50 shadow-xl hover:cursor-pointer w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center ${
+            className={`relative border-4 border-gray-50 bg-gradient-to-r from-customColor to-customColor p-2 rounded-full transition-all duration-300 ease-in-out shadow-gray-300/50 shadow-xl hover:cursor-pointer w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center ${
               isToolTipVisible
                 ? "scale-110 -translate-y-1 from-violet-800 to-indigo-800"
                 : ""

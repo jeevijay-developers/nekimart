@@ -10,7 +10,7 @@ const testimonials = [
   {
     name: "Abhishek Yadav",
     img: "/people/1.jpg",
-    text: "The cotton shirts from O'Century are perfect for everyday wear—lightweight, breathable, and they look sharp without being too formal.",
+    text: "The cotton shirts from Nekimart are perfect for everyday wear—lightweight, breathable, and they look sharp without being too formal.",
   },
   {
     name: "Vishal",
@@ -20,22 +20,22 @@ const testimonials = [
   {
     name: "Ajit Singh",
     img: "/people/3.jpg",
-    text: "It’s hard to find clothes that fit well and feel good in this weather, but O'Century nailed it. Their cotton fabric is top-notch.",
+    text: "It’s hard to find clothes that fit well and feel good in this weather, but Nekimart nailed it. Their cotton fabric is top-notch.",
   },
   {
     name: "Keshav Kumar",
     img: "/people/4.jpg",
-    text: "I appreciate brands that focus on fabric quality, and O'Century definitely delivers. The shirt feels premium and still breathable in the heat.",
+    text: "I appreciate brands that focus on fabric quality, and Nekimart definitely delivers. The shirt feels premium and still breathable in the heat.",
   },
   {
     name: "Lakshay Saxena",
     img: "/people/5.jpg",
-    text: "Subtle, stylish, and super soft—my new O'Century kurta is easily the best one in my wardrobe. Great for both casual and festive wear.",
+    text: "Subtle, stylish, and super soft—my new Nekimart kurta is easily the best one in my wardrobe. Great for both casual and festive wear.",
   },
   {
     name: "George ",
     img: "/people/6.jpg",
-    text: "Bought a pair of O'Century cotton trousers and they’ve easily become my everyday favorite. The fit is clean, the fabric feels light and airy, and they’re versatile enough for both work and weekend wear. You can genuinely feel the quality.",
+    text: "Bought a pair of Nekimart cotton trousers and they’ve easily become my everyday favorite. The fit is clean, the fabric feels light and airy, and they’re versatile enough for both work and weekend wear. You can genuinely feel the quality.",
   },
 ];
 
@@ -47,7 +47,7 @@ const Testimonials = () => {
           <FaStar
             className="text-2xl md:text-3xl lg:text-5xl "
             key={idx}
-            style={{ color: "#ffd319"}}
+            style={{ color: "#ffd319" }}
           />
         ))}
       </div>
@@ -76,7 +76,11 @@ const Testimonials = () => {
                 </h4>
                 <div className="mt-4 flex items-center space-x-3">
                   <figure className="h-10 w-10 overflow-hidden rounded-full">
-                    <img src={t.img} className="h-full w-full object-cover" alt={t.name} />
+                    <img
+                      src={t.img}
+                      className="h-full w-full object-cover"
+                      alt={t.name}
+                    />
                   </figure>
                   <p className="font-lexend text-xl font-medium text-blue-950">
                     {t.name}

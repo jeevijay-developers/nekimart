@@ -19,7 +19,7 @@ const PartnerRegistrationForm = () => {
     email: userInfo?.email || "",
     mobile: userInfo?.phone || "",
     address: userInfo?.address || "",
-    city:  "",
+    city: "",
     state: "",
     pinCode: "",
     pan: "",
@@ -32,50 +32,50 @@ const PartnerRegistrationForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setIsSubmitting(true);
-  try {
-    const result = await requests.post("/partners/partner/add", formData);
-    console.log("store Owner api res ", result);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const result = await requests.post("/partners/partner/add", formData);
+      console.log("store Owner api res ", result);
 
-    // Web 3 form
+      // Web 3 form
 
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        access_key: WEB3FORMS_ACCESS_KEY,
-        ...formData,
-      }),
-    });
-    const Web3FormResult = await response.json();
-    console.log("Web3FormResult ", Web3FormResult);
-    console.log("userInfo", userInfo);
-    
-    toast.success("Partner registration successful!");
-    setFormData({
-      name: userInfo?.name || "",
-      email: userInfo?.email || "",
-      mobile: userInfo?.phone || "",
-      address: userInfo?.address || "",
-      city: "",
-      state: "",
-      pinCode: "",
-      pan: "",
-      aadhar: "",
-      gst: "",
-      designation: "StorePartner",
-    });
-  } catch (error) {
-    console.error("Error:", error);
-    toast.error(error.response?.data?.message || "Something went wrong!");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          ...formData,
+        }),
+      });
+      const Web3FormResult = await response.json();
+      console.log("Web3FormResult ", Web3FormResult);
+      console.log("userInfo", userInfo);
+
+      toast.success("Partner registration successful!");
+      setFormData({
+        name: userInfo?.name || "",
+        email: userInfo?.email || "",
+        mobile: userInfo?.phone || "",
+        address: userInfo?.address || "",
+        city: "",
+        state: "",
+        pinCode: "",
+        pan: "",
+        aadhar: "",
+        gst: "",
+        designation: "StorePartner",
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.response?.data?.message || "Something went wrong!");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // Form field structure
   const formFields = [
@@ -159,7 +159,7 @@ const handleSubmit = async (e) => {
       ) : (
         <div className="max-w-3xl mx-auto px-4 py-8">
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="bg-customPink px-6 py-4">
+            <div className="bg-customColor px-6 py-4">
               <h2 className="text-xl font-bold text-white">
                 Register as a Store Owner
               </h2>
@@ -252,7 +252,7 @@ const handleSubmit = async (e) => {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 text-sm font-medium text-white bg-customPink hover:bg-customPinkDark rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPink disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 text-sm font-medium text-white bg-customColor hover:bg-customColorDark rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customColor disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
