@@ -99,13 +99,13 @@ const MainCarousel = () => {
               className="w-full relative overflow-hidden"
               key={i + 1}
             >
-              <div className="relative w-full aspect-[16/9] sm:aspect-[16/8] md:aspect-[16/7] lg:aspect-none lg:h-[450px]">
+              <div className="relative w-full h-[250px] sm:h-[320px] md:h-[380px] lg:h-[450px]">
                 <img
                   src={item.image || "/slider/slider-1.jpg"}
                   alt={item.title || "Slider Image"}
                   className="w-full h-full object-cover object-center"
                   loading="eager"
-                  style={{ imageRendering: "auto", width: "100%" }}
+                  style={{ imageRendering: "auto" }}
                 />
               </div>
             </SwiperSlide>
