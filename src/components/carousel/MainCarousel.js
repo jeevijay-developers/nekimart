@@ -95,16 +95,17 @@ const MainCarousel = () => {
           className="mySwiper"
         >
           {sliderData?.map((item, i) => (
-            <SwiperSlide className="w-full relative overflow-hidden" key={i + 1}>
+            <SwiperSlide
+              className="w-full relative overflow-hidden"
+              key={i + 1}
+            >
               <div className="relative w-full aspect-[16/9] sm:aspect-[16/8] md:aspect-[16/7] lg:aspect-none lg:h-[450px]">
                 <img
                   src={item.image || "/slider/slider-1.jpg"}
                   alt={item.title || "Slider Image"}
                   className="w-full h-full object-cover object-center"
                   loading="eager"
-                  style={{ imageRendering: "auto", 
-                           width: "100%"
-                  }}
+                  style={{ imageRendering: "auto", width: "100%" }}
                 />
               </div>
             </SwiperSlide>
@@ -112,37 +113,37 @@ const MainCarousel = () => {
         </Swiper>
 
         {/* Custom navigation buttons */}
-        <div className="custom-swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white/80 hover:bg-white/90 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105">
-          <svg 
-            className="w-6 h-6 text-black" 
-            fill="none" 
-            stroke="currentColor" 
+        <div className="custom-swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-20 w-12 h-40 bg-transparent border border-gray-300 flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105 hover:bg-gradient-to-b hover:from-black/20 hover:to-black/40">
+          <svg
+            className="w-6 h-6 text-black"
+            fill="none"
+            stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M15 19l-7-7 7-7" 
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
             />
           </svg>
         </div>
 
-        <div className="custom-swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white/80 hover:bg-white/90 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105">
-          <svg 
-            className="w-6 h-6 text-black" 
-            fill="none" 
-            stroke="currentColor" 
+        <div className="custom-swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 z-20 w-12 h-40 bg-transparent border border-gray-300 flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105 hover:bg-gradient-to-b hover:from-black/20 hover:to-black/40">
+          <svg
+            className="w-6 h-6 text-black"
+            fill="none"
+            stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M9 5l7 7-7 7" 
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
             />
           </svg>
-          </div>
+        </div>
 
         {/* Custom pagination container */}
         <div className="swiper-pagination"></div>
@@ -181,7 +182,7 @@ const MainCarousel = () => {
             width: 10px;
             height: 10px;
           }
-          
+
           .custom-swiper-button-prev svg,
           .custom-swiper-button-next svg {
             width: 4px;
