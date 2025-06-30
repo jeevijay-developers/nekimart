@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import requests from "@services/httpServices";
 import { getUserSession } from "@lib/auth";
 import axios from "axios";
+import PartnerWithUs from "@services/partnerWithUsServices";
 
 const PartnerRegistrationForm = () => {
   const { storeCustomizationSetting, loading } = useGetSetting();
@@ -33,6 +34,9 @@ const PartnerRegistrationForm = () => {
     IFSC: "",
     accountHolderName: "",
     bankBranch: "",
+    GSTNumber: "",
+    cancelCheque: null,
+    cancelChequeUrl: "",
   });
 
   const formFields = [
@@ -86,6 +90,17 @@ const PartnerRegistrationForm = () => {
       label: "Account Holder Name",
       type: "text",
       placeholder: "Enter account holder name",
+    },
+    {
+      name: "GSTNumber",
+      label: "GST Registration Number",
+      type: "text",
+      placeholder: "Enter GST number",
+    },
+    {
+      name: "cancelCheque",
+      label: "Upload Cancel Cheque",
+      type: "file",
     },
     {
       name: "bankBranch",
@@ -159,10 +174,11 @@ const PartnerRegistrationForm = () => {
     setIsSubmitting(true);
 
     // Check if all required files are uploaded
-    const requiredFiles = ["logo", "aadharCard", "panCard"];
+    const requiredFiles = ["logo", "aadharCard", "panCard", "cancelCheque"];
     const missingUploads = requiredFiles.filter(
       (field) => formData[field] && !formData[`${field}Url`]
     );
+    
 
     if (missingUploads.length > 0) {
       toast.error("Please wait for all files to upload before submitting.");
@@ -172,61 +188,76 @@ const PartnerRegistrationForm = () => {
 
     try {
       // Send to Web3Forms with image URLs instead of files
-      const web3Response = await axios.post(
-        "https://api.web3forms.com/submit",
-        {
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
-          subject: "New Partner Registration",
-          name: formData.name,
-          email: formData.email,
-          mobile: formData.mobile,
-          brandName: formData.brandName,
-          aboutProduct: formData.aboutProduct,
-          accountNumber: formData.bankAccNumber,
-          IFSC: formData.IFSC,
-          accountHolderName: formData.accountHolderName,
-          bankBranch: formData.bankBranch,
-          // Send Cloudinary URLs instead of files
-          logoUrl: formData.logoUrl || "Not provided",
-          aadharCardUrl: formData.aadharCardUrl || "Not provided",
-          panCardUrl: formData.panCardUrl || "Not provided",
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      // const web3Response = await axios.post(
+      //   "https://api.web3forms.com/submit",
+      //   {
+      //     access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+      //     subject: "New Partner Registration",
+      //     name: formData.name,
+      //     email: formData.email,
+      //     mobile: formData.mobile,
+      //     brandName: formData.brandName,
+      //     aboutProduct: formData.aboutProduct,
+      //     accountNumber: formData.bankAccNumber,
+      //     IFSC: formData.IFSC,
+      //     accountHolderName: formData.accountHolderName,
+      //     bankBranch: formData.bankBranch,
+      //     // Send Cloudinary URLs instead of files
+      //     logoUrl: formData.logoUrl || "Not provided",
+      //     aadharCardUrl: formData.aadharCardUrl || "Not provided",
+      //     panCardUrl: formData.panCardUrl || "Not provided",
+      //   },
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   }
+      // );
+
+      // const web3Result = web3Response.data;
+      // console.log("Web3Forms response:", web3Result);
+      const res = await PartnerWithUs.register({
+        name: formData.name,
+        email: formData.email,
+        mobile: formData.mobile,
+        brandName: formData.brandName,
+        aboutProduct: formData.aboutProduct,
+        bankAccNumber: formData.bankAccNumber,
+        IFSC: formData.IFSC,
+        accountHolderName: formData.accountHolderName,
+        bankBranch: formData.bankBranch,
+        logoUrl: formData.logoUrl,
+        aadharCardUrl: formData.aadharCardUrl,
+        panCardUrl: formData.panCardUrl,
+        GSTNumber: formData.GSTNumber,
+        cancelCheque: formData.cancelChequeUrl,
+      });
+
+      toast.success(
+        "Thanks For Submitting Partner Registration. Our Team Will Get Back To You Soon."
       );
 
-      const web3Result = web3Response.data;
-      console.log("Web3Forms response:", web3Result);
-
-      if (web3Result.success) {
-        toast.success(
-          "Thanks For Submitting Partner Registration. Our Team Will Get Back To You Soon."
-        );
-
-        // Reset form
-        setFormData({
-          name: userInfo?.name || "",
-          email: userInfo?.email || "",
-          mobile: userInfo?.phone || "",
-          brandName: "",
-          logo: null,
-          logoUrl: "",
-          aboutProduct: "",
-          aadharCard: null,
-          aadharCardUrl: "",
-          panCard: null,
-          panCardUrl: "",
-          bankAccNumber: "",
-          IFSC: "",
-          accountHolderName: "",
-          bankBranch: "",
-        });
-      } else {
-        throw new Error(web3Result.message || "Submission failed");
-      }
+      // Reset form
+      setFormData({
+        name: userInfo?.name || "",
+        email: userInfo?.email || "",
+        mobile: userInfo?.phone || "",
+        brandName: "",
+        logo: null,
+        logoUrl: "",
+        aboutProduct: "",
+        aadharCard: null,
+        aadharCardUrl: "",
+        panCard: null,
+        panCardUrl: "",
+        bankAccNumber: "",
+        IFSC: "",
+        accountHolderName: "",
+        bankBranch: "",
+        GSTNumber: "",
+        cancelCheque: null,
+        cancelChequeUrl: "",
+      });
     } catch (error) {
       console.error("Error:", error);
       toast.error(
@@ -256,6 +287,8 @@ const PartnerRegistrationForm = () => {
       IFSC: "",
       accountHolderName: "",
       bankBranch: "",
+      cancelCheque: null,
+      cancelChequeUrl: "",
     });
   };
 
