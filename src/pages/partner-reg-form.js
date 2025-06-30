@@ -9,7 +9,7 @@ import requests from "@services/httpServices";
 import { getUserSession } from "@lib/auth";
 import axios from "axios";
 
-const VendorRegistrationForm = () => {
+const PartnerRegistrationForm = () => {
   const { storeCustomizationSetting, loading } = useGetSetting();
   const { showingTranslateValue } = useUtilsFunction();
   const userInfo = getUserSession();
@@ -328,4 +328,4 @@ const VendorRegistrationForm = () => {
   );
 };
 
-export default VendorRegistrationForm;
+export default PartnerRegistrationForm;
