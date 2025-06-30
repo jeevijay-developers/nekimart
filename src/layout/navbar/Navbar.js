@@ -78,7 +78,7 @@ const Navbar = () => {
                     height={40}
                     className="w-full h-auto"
                     priority
-                    src="/logo/logoneki.png"
+                    src="/logo/logo.png"
                     alt="logo"
                   />
                 </Link>
@@ -230,6 +230,17 @@ const Navbar = () => {
                 storeCustomizationSetting?.navbar?.cancellation_and_Refund
               )} */}
               Cancellation And Refund
+            </Link>
+          }
+          {
+            <Link
+              href="/partner-reg-form"
+              className="font-montserrat relative text-white hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+            >
+              {/* {showingTranslateValue(
+                storeCustomizationSetting?.navbar?.cancellation_and_Refund
+              )} */}
+              Partner With Us
             </Link>
           }
                     

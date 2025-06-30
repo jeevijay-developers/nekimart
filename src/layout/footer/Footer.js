@@ -284,7 +284,7 @@ const Footer = () => {
                     height="0"
                     sizes="100vw"
                     className="w-full h-auto"
-                    src={"/logo/gray-logo.png"}
+                    src={"/logo/logo.png"}
                     alt="logo"
                   />
                 </div>
