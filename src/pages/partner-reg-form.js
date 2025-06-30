@@ -15,6 +15,7 @@ const PartnerRegistrationForm = () => {
   const userInfo = getUserSession();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadingFiles, setUploadingFiles] = useState({});
 
   const [formData, setFormData] = useState({
     name: userInfo?.name || "",
@@ -22,42 +23,17 @@ const PartnerRegistrationForm = () => {
     mobile: userInfo?.phone || "",
     brandName: "",
     logo: null,
+    logoUrl: "", // Store Cloudinary URL
     aboutProduct: "",
     aadharCard: null,
+    aadharCardUrl: "", // Store Cloudinary URL
     panCard: null,
+    panCardUrl: "", // Store Cloudinary URL
     bankAccNumber: "",
     IFSC: "",
     accountHolderName: "",
     bankBranch: "",
   });
-
-  // const uploadToCloudinary = async (file, fieldName) => {
-  //   setUploadingFile((prev) => ({ ...prev, [fieldName]: true }));
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("file", file);
-  //     formData.append(
-  //       "upload_preset",
-  //       process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
-  //     );
-  //     const response = await axios.post(
-  //       process.env.NEXT_PUBLIC_CLOUDINARY_URL,
-  //       formData,
-  //       {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       }
-  //     );
-  //     return response.data.secure_url;
-  //   } catch (error) {
-  //     console.error("Cloudinary upload error:", error);
-  //     toast.error(`Failed to upload ${fieldName}. Please try again.`);
-  //     return null;
-  //   } finally {
-  //     setUploadingFiles((prev) => ({ ...prev, [fieldName]: false }));
-  //   }
-  // };
 
   const formFields = [
     {
@@ -78,7 +54,6 @@ const PartnerRegistrationForm = () => {
       type: "email",
       placeholder: "Enter your email",
     },
-
     {
       name: "brandName",
       label: "Your Brand Name",
@@ -92,10 +67,8 @@ const PartnerRegistrationForm = () => {
       type: "textarea",
       placeholder: "Describe your products",
     },
-
     { name: "aadharCard", label: "Upload Your Aadhar Card", type: "file" },
     { name: "panCard", label: "Upload Your PAN Card", type: "file" },
-
     {
       name: "bankAccNumber",
       label: "Account Number",
@@ -122,38 +95,88 @@ const PartnerRegistrationForm = () => {
     },
   ];
 
-  const handleChange = (e) => {
+  // Function to upload file to Cloudinary
+  const uploadToCloudinary = async (file, fieldName) => {
+    setUploadingFiles((prev) => ({ ...prev, [fieldName]: true }));
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append(
+        "upload_preset",
+        process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+      );
+
+      const response = await axios.post(
+        process.env.NEXT_PUBLIC_CLOUDINARY_URL,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      return response.data.secure_url;
+    } catch (error) {
+      console.error("Cloudinary upload error:", error);
+      toast.error(`Failed to upload ${fieldName}. Please try again.`);
+      return null;
+    } finally {
+      setUploadingFiles((prev) => ({ ...prev, [fieldName]: false }));
+    }
+  };
+
+  const handleChange = async (e) => {
     const { name, type, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "file" ? files[0] : value,
-    });
+
+    if (type === "file" && files[0]) {
+      // Store the file for form display
+      setFormData((prev) => ({
+        ...prev,
+        [name]: files[0],
+      }));
+
+      // Upload to Cloudinary
+      const uploadedUrl = await uploadToCloudinary(files[0], name);
+      if (uploadedUrl) {
+        setFormData((prev) => ({
+          ...prev,
+          [`${name}Url`]: uploadedUrl,
+        }));
+        toast.success(`${name} uploaded successfully!`);
+      }
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const form = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      form.append(key, value);
-    });
+    // Check if all required files are uploaded
+    const requiredFiles = ["logo", "aadharCard", "panCard"];
+    const missingUploads = requiredFiles.filter(
+      (field) => formData[field] && !formData[`${field}Url`]
+    );
+
+    if (missingUploads.length > 0) {
+      toast.error("Please wait for all files to upload before submitting.");
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
-      // ✅ Send to your backend (including files)
-      // const result = await requests.post("tele/Vendor/add", form, {
-      //   headers: { "Content-Type": "multipart/form-data" },
-      // });
-      // console.log("Backend response:", result);
-
-      const web3Response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      // Send to Web3Forms with image URLs instead of files
+      const web3Response = await axios.post(
+        "https://api.web3forms.com/submit",
+        {
           access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
-          subject: "New Vendor Registration",
+          subject: "New Partner Registration",
           name: formData.name,
           email: formData.email,
           mobile: formData.mobile,
@@ -163,44 +186,81 @@ const PartnerRegistrationForm = () => {
           IFSC: formData.IFSC,
           accountHolderName: formData.accountHolderName,
           bankBranch: formData.bankBranch,
-        }),
-      });
-
-      const web3Result = await web3Response.json();
-      console.log("Web3Forms response:", web3Result);
-
-      toast.success(
-        "Thanks For Submitting Vendor Registration. Our Team Will Get Back To You Soon."
+          // Send Cloudinary URLs instead of files
+          logoUrl: formData.logoUrl || "Not provided",
+          aadharCardUrl: formData.aadharCardUrl || "Not provided",
+          panCardUrl: formData.panCardUrl || "Not provided",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
-      setFormData({
-        name: userInfo?.name || "",
-        email: userInfo?.email || "",
-        mobile: userInfo?.phone || "",
-        brandName: "",
-        logo: null,
-        aboutProduct: "",
-        aadharCard: null,
-        panCard: null,
-        bankAccNumber: "",
-        IFSC: "",
-        accountHolderName: "",
-        bankBranch: "",
-      });
+      const web3Result = web3Response.data;
+      console.log("Web3Forms response:", web3Result);
+
+      if (web3Result.success) {
+        toast.success(
+          "Thanks For Submitting Partner Registration. Our Team Will Get Back To You Soon."
+        );
+
+        // Reset form
+        setFormData({
+          name: userInfo?.name || "",
+          email: userInfo?.email || "",
+          mobile: userInfo?.phone || "",
+          brandName: "",
+          logo: null,
+          logoUrl: "",
+          aboutProduct: "",
+          aadharCard: null,
+          aadharCardUrl: "",
+          panCard: null,
+          panCardUrl: "",
+          bankAccNumber: "",
+          IFSC: "",
+          accountHolderName: "",
+          bankBranch: "",
+        });
+      } else {
+        throw new Error(web3Result.message || "Submission failed");
+      }
     } catch (error) {
       console.error("Error:", error);
-      toast.error(error.response?.data?.message || "Something went wrong!");
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong!"
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const resetForm = () => {
+    setFormData({
+      name: userInfo?.name || "",
+      email: userInfo?.email || "",
+      mobile: userInfo?.phone || "",
+      brandName: "",
+      logo: null,
+      logoUrl: "",
+      aboutProduct: "",
+      aadharCard: null,
+      aadharCardUrl: "",
+      panCard: null,
+      panCardUrl: "",
+      bankAccNumber: "",
+      IFSC: "",
+      accountHolderName: "",
+      bankBranch: "",
+    });
+  };
+
   return (
-    <Layout title="Vendor Registration" description="Register as a Vendor">
-      {/* <PageHeader
-        headerBg={storeCustomizationSetting?.term_and_condition?.header_bg}
-        title="Vendor Registration Form"
-      /> */}
+    <Layout title="Partner Registration" description="Register as a Partner">
       {loading ? (
         <CMSkeleton />
       ) : (
@@ -208,7 +268,7 @@ const PartnerRegistrationForm = () => {
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <div className="bg-customColor px-6 py-4">
               <h2 className="text-xl font-bold text-white">
-                Partner With Us Form
+                Partner Registration Form
               </h2>
               <p className="text-indigo-100 mt-1 text-sm">
                 Fill in the details below to join our partner network
@@ -237,14 +297,47 @@ const PartnerRegistrationForm = () => {
                         required
                       />
                     ) : field.type === "file" ? (
-                      <input
-                        type="file"
-                        id={field.name}
-                        name={field.name}
-                        onChange={handleChange}
-                        className="w-full"
-                        required
-                      />
+                      <div className="space-y-2">
+                        <input
+                          type="file"
+                          id={field.name}
+                          name={field.name}
+                          onChange={handleChange}
+                          className="w-full"
+                          accept="image/*"
+                          required
+                        />
+                        {uploadingFiles[field.name] && (
+                          <div className="flex items-center text-sm text-blue-600">
+                            <svg
+                              className="animate-spin -ml-1 mr-2 h-4 w-4"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                              ></circle>
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                              ></path>
+                            </svg>
+                            Uploading...
+                          </div>
+                        )}
+                        {formData[`${field.name}Url`] && (
+                          <div className="text-sm text-green-600">
+                            ✓ File uploaded successfully
+                          </div>
+                        )}
+                      </div>
                     ) : (
                       <input
                         type={field.type}
@@ -264,22 +357,7 @@ const PartnerRegistrationForm = () => {
               <div className="flex items-center justify-center md:justify-end pt-4 border-t border-gray-200">
                 <button
                   type="button"
-                  onClick={() =>
-                    setFormData({
-                      name: userInfo?.name || "",
-                      email: userInfo?.email || "",
-                      mobile: userInfo?.phone || "",
-                      brandName: "",
-                      logo: null,
-                      aboutProduct: "",
-                      aadharCard: null,
-                      panCard: null,
-                      bankAccNumber: "",
-                      IFSC: "",
-                      accountHolderName: "",
-                      bankBranch: "",
-                    })
-                  }
+                  onClick={resetForm}
                   className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md mr-4"
                   disabled={isSubmitting}
                 >
@@ -289,7 +367,9 @@ const PartnerRegistrationForm = () => {
                 <button
                   type="submit"
                   className="px-6 py-2 text-sm font-medium text-white bg-customColor hover:bg-customColorDark rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customColor disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={isSubmitting}
+                  disabled={
+                    isSubmitting || Object.values(uploadingFiles).some(Boolean)
+                  }
                 >
                   {isSubmitting ? (
                     <span className="flex items-center">
@@ -315,6 +395,8 @@ const PartnerRegistrationForm = () => {
                       </svg>
                       Processing...
                     </span>
+                  ) : Object.values(uploadingFiles).some(Boolean) ? (
+                    "Uploading Files..."
                   ) : (
                     "Register Partner"
                   )}
