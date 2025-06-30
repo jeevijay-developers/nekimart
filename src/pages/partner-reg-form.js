@@ -45,68 +45,94 @@ const PartnerRegistrationForm = () => {
       label: "Your Name",
       type: "text",
       placeholder: "Enter your full name",
+      required: true,
     },
     {
       name: "mobile",
       label: "Your Mobile Number",
       type: "tel",
       placeholder: "Enter your mobile number",
+      required: true,
     },
     {
       name: "email",
       label: "Mail ID",
       type: "email",
       placeholder: "Enter your email",
+      required: true,
     },
     {
       name: "brandName",
       label: "Your Brand Name",
       type: "text",
       placeholder: "Enter your brand name",
+      required: true,
     },
-    { name: "logo", label: "Logo (If Applicable)", type: "file" },
+    {
+      name: "logo",
+      label: "Logo (If Applicable)",
+      type: "file",
+      required: false,
+    },
     {
       name: "aboutProduct",
       label: "Brief About Your Products",
       type: "textarea",
       placeholder: "Describe your products",
+      required: false,
     },
-    { name: "aadharCard", label: "Upload Your Aadhar Card", type: "file" },
-    { name: "panCard", label: "Upload Your PAN Card", type: "file" },
+    {
+      name: "aadharCard",
+      label: "Upload Your Aadhar Card",
+      type: "file",
+      required: true,
+    },
+    {
+      name: "panCard",
+      label: "Upload Your PAN Card",
+      type: "file",
+      required: true,
+    },
     {
       name: "bankAccNumber",
       label: "Account Number",
       type: "text",
       placeholder: "Enter account number",
+      required: true,
     },
     {
       name: "IFSC",
       label: "IFSC Code",
       type: "text",
       placeholder: "Enter IFSC code",
+      required: true,
     },
     {
       name: "accountHolderName",
       label: "Account Holder Name",
       type: "text",
       placeholder: "Enter account holder name",
+      required: true,
     },
     {
       name: "GSTNumber",
       label: "GST Registration Number",
       type: "text",
       placeholder: "Enter GST number",
+      required: true,
     },
     {
       name: "cancelCheque",
       label: "Upload Cancel Cheque",
       type: "file",
+      required: true,
     },
     {
       name: "bankBranch",
       label: "Your Bank Branch",
       type: "text",
       placeholder: "Enter bank branch",
+      required: true,
     },
   ];
 
@@ -174,11 +200,10 @@ const PartnerRegistrationForm = () => {
     setIsSubmitting(true);
 
     // Check if all required files are uploaded
-    const requiredFiles = ["logo", "aadharCard", "panCard", "cancelCheque"];
+    const requiredFiles = ["aadharCard", "panCard", "cancelCheque"];
     const missingUploads = requiredFiles.filter(
       (field) => formData[field] && !formData[`${field}Url`]
     );
-    
 
     if (missingUploads.length > 0) {
       toast.error("Please wait for all files to upload before submitting.");
@@ -327,7 +352,7 @@ const PartnerRegistrationForm = () => {
                         onChange={handleChange}
                         placeholder={field.placeholder}
                         className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        required
+                        required={field.required}
                       />
                     ) : field.type === "file" ? (
                       <div className="space-y-2">
@@ -338,7 +363,7 @@ const PartnerRegistrationForm = () => {
                           onChange={handleChange}
                           className="w-full"
                           accept="image/*"
-                          required
+                          required={field.required}
                         />
                         {uploadingFiles[field.name] && (
                           <div className="flex items-center text-sm text-blue-600">
@@ -380,7 +405,7 @@ const PartnerRegistrationForm = () => {
                         onChange={handleChange}
                         placeholder={field.placeholder}
                         className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        required
+                        required={field.required}
                       />
                     )}
                   </div>
