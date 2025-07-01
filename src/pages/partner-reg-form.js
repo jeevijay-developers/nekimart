@@ -255,7 +255,7 @@ const PartnerRegistrationForm = () => {
         aadharCardUrl: formData.aadharCardUrl,
         panCardUrl: formData.panCardUrl,
         GSTNumber: formData.GSTNumber,
-        cancelCheque: formData.cancelChequeUrl,
+        cancelChequeUrl: formData.cancelChequeUrl,
       });
 
       toast.success(
