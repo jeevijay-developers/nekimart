@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Layout from "@layout/Layout";
 import useGetSetting from "@hooks/useGetSetting";
 import PageHeader from "@components/header/PageHeader";
@@ -11,6 +11,13 @@ import axios from "axios";
 import PartnerWithUs from "@services/partnerWithUsServices";
 
 const PartnerRegistrationForm = () => {
+  const fileInputRefs = useRef({
+    logo: null,
+    aadharCard: null,
+    panCard: null,
+    cancelCheque: null,
+  });
+  const formRef = useRef(null);
   const { storeCustomizationSetting, loading } = useGetSetting();
   const { showingTranslateValue } = useUtilsFunction();
   const userInfo = getUserSession();
@@ -82,15 +89,41 @@ const PartnerRegistrationForm = () => {
       required: false,
     },
     {
+      name: "address",
+      label: "Address",
+      type: "textarea",
+      placeholder: "Enter Your Address",
+      required: false,
+    },
+    {
+      name: "pincode",
+      label: "Pincode",
+      type: "Number",
+      placeholder: "Enter Your Pincode",
+      required: true,
+    },
+    {
       name: "aadharCard",
       label: "Upload Your Aadhar Card",
       type: "file",
       required: true,
     },
     {
+      name: "aadharNumber",
+      label: "Your Aadhar Number",
+      type: "Number",
+      required: true,
+    },
+    {
       name: "panCard",
       label: "Upload Your PAN Card",
       type: "file",
+      required: true,
+    },
+    {
+      name: "panNumber",
+      label: "Your PAN Number",
+      type: "Number",
       required: true,
     },
     {
@@ -254,8 +287,12 @@ const PartnerRegistrationForm = () => {
         logoUrl: formData.logoUrl,
         aadharCardUrl: formData.aadharCardUrl,
         panCardUrl: formData.panCardUrl,
+        cancelChequeUrl: formData.panCardUrl,
         GSTNumber: formData.GSTNumber,
-        cancelChequeUrl: formData.cancelChequeUrl,
+        aadharNumber: formData.aadharNumber,
+        address: formData.address,
+        pincode: formData.pincode,
+        panNumber: formData.panNumber,
       });
 
       toast.success(
@@ -315,6 +352,11 @@ const PartnerRegistrationForm = () => {
       cancelCheque: null,
       cancelChequeUrl: "",
     });
+    Object.keys(fileInputRefs.current).forEach((key) => {
+      if (fileInputRefs.current[key]) {
+        fileInputRefs.current[key].value = "";
+      }
+    });
   };
 
   return (
@@ -333,7 +375,11 @@ const PartnerRegistrationForm = () => {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-6">
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="p-6 space-y-6"
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {formFields.map((field) => (
                   <div
