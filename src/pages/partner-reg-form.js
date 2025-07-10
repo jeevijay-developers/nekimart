@@ -53,6 +53,7 @@ const PartnerRegistrationForm = () => {
       type: "text",
       placeholder: "Enter your full name",
       required: true,
+      readOnly: true,
     },
     {
       name: "mobile",
@@ -60,6 +61,7 @@ const PartnerRegistrationForm = () => {
       type: "number",
       placeholder: "Enter your mobile number",
       required: true,
+      readOnly: true,
     },
     {
       name: "email",
@@ -67,6 +69,7 @@ const PartnerRegistrationForm = () => {
       type: "email",
       placeholder: "Enter your email",
       required: true,
+      readOnly: true,
     },
     {
       name: "brandName",
@@ -371,8 +374,11 @@ const PartnerRegistrationForm = () => {
                         value={formData[field.name]}
                         onChange={handleChange}
                         placeholder={field.placeholder}
-                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        className={`w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 ${
+                          field.readOnly ? "cursor-not-allowed text-gray-500" : ""
+                        } `}
                         required={field.required}
+                        readOnly={field.readOnly}
                       />
                     )}
                   </div>
