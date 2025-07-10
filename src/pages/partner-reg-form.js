@@ -11,32 +11,20 @@ import axios from "axios";
 import PartnerWithUs from "@services/partnerWithUsServices";
 
 const PartnerRegistrationForm = () => {
-  const fileInputRefs = useRef({
-    logo: null,
-    aadharCard: null,
-    panCard: null,
-    cancelCheque: null,
-  });
-  const formRef = useRef(null);
-  const { storeCustomizationSetting, loading } = useGetSetting();
-  const { showingTranslateValue } = useUtilsFunction();
-  const userInfo = getUserSession();
+  const userInfo = getUserSession(); 
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadingFiles, setUploadingFiles] = useState({});
-
-  const [formData, setFormData] = useState({
+  const initial = {
     name: userInfo?.name || "",
     email: userInfo?.email || "",
     mobile: userInfo?.phone || "",
     brandName: "",
     logo: null,
-    logoUrl: "", // Store Cloudinary URL
+    logoUrl: "",
     aboutProduct: "",
     aadharCard: null,
-    aadharCardUrl: "", // Store Cloudinary URL
+    aadharCardUrl: "",
     panCard: null,
-    panCardUrl: "", // Store Cloudinary URL
+    panCardUrl: "",
     bankAccNumber: "",
     IFSC: "",
     accountHolderName: "",
@@ -44,7 +32,19 @@ const PartnerRegistrationForm = () => {
     GSTNumber: "",
     cancelCheque: null,
     cancelChequeUrl: "",
-  });
+    address: "",
+    pincode: "",
+    aadharNumber: "",
+    panNumber: "",
+  };
+
+  const fileInputRefs = useRef({});
+  const formRef = useRef(null);
+  const { storeCustomizationSetting, loading } = useGetSetting();
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadingFiles, setUploadingFiles] = useState({});
+  const [formData, setFormData] = useState(initial);
 
   const formFields = [
     {
@@ -57,7 +57,7 @@ const PartnerRegistrationForm = () => {
     {
       name: "mobile",
       label: "Your Mobile Number",
-      type: "tel",
+      type: "number",
       placeholder: "Enter your mobile number",
       required: true,
     },
@@ -98,7 +98,7 @@ const PartnerRegistrationForm = () => {
     {
       name: "pincode",
       label: "Pincode",
-      type: "Number",
+      type: "number",
       placeholder: "Enter Your Pincode",
       required: true,
     },
@@ -111,7 +111,7 @@ const PartnerRegistrationForm = () => {
     {
       name: "aadharNumber",
       label: "Your Aadhar Number",
-      type: "Number",
+      type: "number",
       required: true,
     },
     {
@@ -123,13 +123,13 @@ const PartnerRegistrationForm = () => {
     {
       name: "panNumber",
       label: "Your PAN Number",
-      type: "Number",
+      type: "text",
       required: true,
     },
     {
       name: "bankAccNumber",
       label: "Account Number",
-      type: "text",
+      type: "number",
       placeholder: "Enter account number",
       required: true,
     },
@@ -169,25 +169,30 @@ const PartnerRegistrationForm = () => {
     },
   ];
 
-  // Function to upload file to Cloudinary
   const uploadToCloudinary = async (file, fieldName) => {
+    if (
+      !process.env.NEXT_PUBLIC_CLOUDINARY_URL ||
+      !process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+    ) {
+      console.error("Missing Cloudinary environment variables.");
+      return null;
+    }
+
     setUploadingFiles((prev) => ({ ...prev, [fieldName]: true }));
 
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append(
+      const form = new FormData();
+      form.append("file", file);
+      form.append(
         "upload_preset",
         process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
       );
 
       const response = await axios.post(
         process.env.NEXT_PUBLIC_CLOUDINARY_URL,
-        formData,
+        form,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers: { "Content-Type": "multipart/form-data" },
         }
       );
 
@@ -205,13 +210,8 @@ const PartnerRegistrationForm = () => {
     const { name, type, value, files } = e.target;
 
     if (type === "file" && files[0]) {
-      // Store the file for form display
-      setFormData((prev) => ({
-        ...prev,
-        [name]: files[0],
-      }));
+      setFormData((prev) => ({ ...prev, [name]: files[0] }));
 
-      // Upload to Cloudinary
       const uploadedUrl = await uploadToCloudinary(files[0], name);
       if (uploadedUrl) {
         setFormData((prev) => ({
@@ -221,10 +221,7 @@ const PartnerRegistrationForm = () => {
         toast.success(`${name} uploaded successfully!`);
       }
     } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
@@ -232,7 +229,6 @@ const PartnerRegistrationForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Check if all required files are uploaded
     const requiredFiles = ["aadharCard", "panCard", "cancelCheque"];
     const missingUploads = requiredFiles.filter(
       (field) => formData[field] && !formData[`${field}Url`]
@@ -245,36 +241,7 @@ const PartnerRegistrationForm = () => {
     }
 
     try {
-      // Send to Web3Forms with image URLs instead of files
-      // const web3Response = await axios.post(
-      //   "https://api.web3forms.com/submit",
-      //   {
-      //     access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
-      //     subject: "New Partner Registration",
-      //     name: formData.name,
-      //     email: formData.email,
-      //     mobile: formData.mobile,
-      //     brandName: formData.brandName,
-      //     aboutProduct: formData.aboutProduct,
-      //     accountNumber: formData.bankAccNumber,
-      //     IFSC: formData.IFSC,
-      //     accountHolderName: formData.accountHolderName,
-      //     bankBranch: formData.bankBranch,
-      //     // Send Cloudinary URLs instead of files
-      //     logoUrl: formData.logoUrl || "Not provided",
-      //     aadharCardUrl: formData.aadharCardUrl || "Not provided",
-      //     panCardUrl: formData.panCardUrl || "Not provided",
-      //   },
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
-
-      // const web3Result = web3Response.data;
-      // console.log("Web3Forms response:", web3Result);
-      const res = await PartnerWithUs.register({
+      await PartnerWithUs.register({
         name: formData.name,
         email: formData.email,
         mobile: formData.mobile,
@@ -287,7 +254,7 @@ const PartnerRegistrationForm = () => {
         logoUrl: formData.logoUrl,
         aadharCardUrl: formData.aadharCardUrl,
         panCardUrl: formData.panCardUrl,
-        cancelChequeUrl: formData.panCardUrl,
+        cancelChequeUrl: formData.cancelChequeUrl,
         GSTNumber: formData.GSTNumber,
         aadharNumber: formData.aadharNumber,
         address: formData.address,
@@ -295,63 +262,18 @@ const PartnerRegistrationForm = () => {
         panNumber: formData.panNumber,
       });
 
-      toast.success(
-        "Thanks For Submitting Partner Registration. Our Team Will Get Back To You Soon."
-      );
-
-      // Reset form
-      setFormData({
-        name: userInfo?.name || "",
-        email: userInfo?.email || "",
-        mobile: userInfo?.phone || "",
-        brandName: "",
-        logo: null,
-        logoUrl: "",
-        aboutProduct: "",
-        aadharCard: null,
-        aadharCardUrl: "",
-        panCard: null,
-        panCardUrl: "",
-        bankAccNumber: "",
-        IFSC: "",
-        accountHolderName: "",
-        bankBranch: "",
-        GSTNumber: "",
-        cancelCheque: null,
-        cancelChequeUrl: "",
-      });
+      toast.success("Thanks for submitting. Our team will contact you soon.");
+      resetForm();
     } catch (error) {
-      console.error("Error:", error);
-      toast.error(
-        error.response?.data?.message ||
-          error.message ||
-          "Something went wrong!"
-      );
+      console.error("Submit error:", error);
+      toast.error(error?.response?.data?.message || "Submission failed.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const resetForm = () => {
-    setFormData({
-      name: userInfo?.name || "",
-      email: userInfo?.email || "",
-      mobile: userInfo?.phone || "",
-      brandName: "",
-      logo: null,
-      logoUrl: "",
-      aboutProduct: "",
-      aadharCard: null,
-      aadharCardUrl: "",
-      panCard: null,
-      panCardUrl: "",
-      bankAccNumber: "",
-      IFSC: "",
-      accountHolderName: "",
-      bankBranch: "",
-      cancelCheque: null,
-      cancelChequeUrl: "",
-    });
+    setFormData(initial);
     Object.keys(fileInputRefs.current).forEach((key) => {
       if (fileInputRefs.current[key]) {
         fileInputRefs.current[key].value = "";
@@ -406,17 +328,16 @@ const PartnerRegistrationForm = () => {
                           type="file"
                           id={field.name}
                           name={field.name}
+                          ref={(el) => (fileInputRefs.current[field.name] = el)}
                           onChange={handleChange}
                           className="w-full"
                           accept="image/*"
                           required={field.required}
                         />
                         {uploadingFiles[field.name] && (
-                          <div className="flex items-center text-sm text-blue-600">
+                          <div className="text-sm text-blue-600 flex items-center">
                             <svg
                               className="animate-spin -ml-1 mr-2 h-4 w-4"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
                               viewBox="0 0 24 24"
                             >
                               <circle
@@ -430,7 +351,7 @@ const PartnerRegistrationForm = () => {
                               <path
                                 className="opacity-75"
                                 fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                               ></path>
                             </svg>
                             Uploading...
@@ -479,8 +400,6 @@ const PartnerRegistrationForm = () => {
                     <span className="flex items-center">
                       <svg
                         className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
                         viewBox="0 0 24 24"
                       >
                         <circle
@@ -494,13 +413,11 @@ const PartnerRegistrationForm = () => {
                         <path
                           className="opacity-75"
                           fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                         ></path>
                       </svg>
                       Processing...
                     </span>
-                  ) : Object.values(uploadingFiles).some(Boolean) ? (
-                    "Uploading Files..."
                   ) : (
                     "Register Partner"
                   )}
