@@ -1,3 +1,4 @@
+"use client"
 import { useContext, useState, Fragment } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -23,6 +24,7 @@ import Category from "@components/category/Category";
 import MobileFooter from "@layout/footer/MobileFooter";
 import { FiAlignLeft, FiBell, FiShoppingCart } from "react-icons/fi";
 import CategoryDrawer from "@components/drawer/CategoryDrawer";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { t, lang } = useTranslation("common");
@@ -233,15 +235,20 @@ const Navbar = () => {
             </Link>
           }
           {
-            <Link
-              href="/partner-reg-form"
+            <button
+              onClick={() => {
+                if (userInfo) {
+                  router.push("/partner-reg-form");
+                } else {
+                  toast.error("Please login to continue", {
+                    position: "top-center",
+                  });
+                }
+              }}
               className="font-montserrat relative text-white hover:text-gray-700 text-lg font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full"
             >
-              {/* {showingTranslateValue(
-                storeCustomizationSetting?.navbar?.cancellation_and_Refund
-              )} */}
               Partner With Us
-            </Link>
+            </button>
           }
                     
         </div>
