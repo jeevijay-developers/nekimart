@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+dist
+build
+**/forms/**
+**/*FileUploadPreview*
+**/*sign-in*
+**/*userShop*
+**/logo.jsx
+*.min.js

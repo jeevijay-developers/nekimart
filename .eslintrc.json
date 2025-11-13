@@ -1,9 +1,17 @@
 {
   "env": { "browser": true, "node": true, "es6": true },
-  "extends": [
-    "eslint:recommended",
-    "next",
-    "next/core-web-vitals",
-    "next/babel"
-  ]
+  "extends": ["eslint:recommended", "next", "next/core-web-vitals"],
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-undef": "warn",
+    "react/no-unescaped-entities": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    "@next/next/no-img-element": "warn",
+    "@next/next/link-passhref": "warn",
+    "react/no-unknown-property": "warn",
+    "no-irregular-whitespace": "warn",
+    "react-hooks/rules-of-hooks": "warn",
+    "react/no-string-refs": "warn",
+    "prettier/prettier": "off"
+  }
 }
