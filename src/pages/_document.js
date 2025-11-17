@@ -16,19 +16,15 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link rel="icon" href={ "logo/logo.png"} />
+          <link rel="icon" href={"logo/logo.png"} />
           <meta
             property="og:title"
-            content={
-              setting?.meta_title || "Nekimart Store "
-            }
+            content={setting?.meta_title || "Nekimart Store "}
           />
           <meta property="og:type" content="eCommerce Website" />
           <meta
             property="og:description"
-            content={
-              setting?.meta_description || ""
-            }
+            content={setting?.meta_description || ""}
           />
           <meta
             name="keywords"

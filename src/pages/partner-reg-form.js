@@ -11,7 +11,7 @@ import axios from "axios";
 import PartnerWithUs from "@services/partnerWithUsServices";
 
 const PartnerRegistrationForm = () => {
-  const userInfo = getUserSession(); 
+  const userInfo = getUserSession();
 
   const initial = {
     name: userInfo?.name || "",
@@ -375,7 +375,9 @@ const PartnerRegistrationForm = () => {
                         onChange={handleChange}
                         placeholder={field.placeholder}
                         className={`w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 ${
-                          field.readOnly ? "cursor-not-allowed text-gray-500" : ""
+                          field.readOnly
+                            ? "cursor-not-allowed text-gray-500"
+                            : ""
                         } `}
                         required={field.required}
                         readOnly={field.readOnly}

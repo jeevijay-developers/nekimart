@@ -15,15 +15,12 @@ const useShippingAddressSubmit = (id) => {
 
   const [selectedValue, setSelectedValue] = useState({
     country: "",
-
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const userInfo = getUserSession();
 
   // const { handlerTextTranslateHandler } = useTranslationValue();
-
-
 
   const {
     register,
@@ -36,7 +33,7 @@ const useShippingAddressSubmit = (id) => {
 
   const onSubmit = async (data) => {
     if (
-      !selectedValue?.country 
+      !selectedValue?.country
       //  !selectedValue?.city ||
       //  !selectedValue?.area
       // !selectedValue?.zipCode
@@ -73,8 +70,6 @@ const useShippingAddressSubmit = (id) => {
       ...prevState,
       [name]: value,
     }));
-
-
   };
 
   const { data, isFetched } = useQuery({
@@ -100,9 +95,7 @@ const useShippingAddressSubmit = (id) => {
       setValue("zipCode", data.zipCode);
       setSelectedValue({
         country: data.country,
- 
       });
-
     } else {
       setValue("email", userInfo?.email);
     }
@@ -112,7 +105,7 @@ const useShippingAddressSubmit = (id) => {
     register,
     onSubmit,
     errors,
-   
+
     setValue,
     handleSubmit,
     selectedValue,

@@ -85,10 +85,16 @@ const useLoginSubmit = () => {
       // Catch any unexpected errors here (e.g., network issues, unexpected API failures)
       console.error(
         "Error in submitHandler:",
-        error.response?.data.error  || error?.response?.data?.message || error?.message
+        error.response?.data.error ||
+          error?.response?.data?.message ||
+          error?.message
       );
       setLoading(false);
-      notifyError( error.response?.data.error || error?.response?.data?.message || error?.message);
+      notifyError(
+        error.response?.data.error ||
+          error?.response?.data?.message ||
+          error?.message
+      );
     }
   };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const TagInput = ({ notes, addNote, removeNote }) => {
   return (
@@ -21,7 +21,7 @@ const TagInput = ({ notes, addNote, removeNote }) => {
         className="react-tag-input__input placeholder:text-sm focus:outline-none active:outline-none border-transparent focus:border-transparent focus:ring-0"
         type="text"
         onBlur={(event) => addNote(event)}
-        onKeyUp={(event) => (event.key === 'Enter' ? addNote(event) : null)}
+        onKeyUp={(event) => (event.key === "Enter" ? addNote(event) : null)}
         placeholder="Press enter to add note"
       />
     </div>

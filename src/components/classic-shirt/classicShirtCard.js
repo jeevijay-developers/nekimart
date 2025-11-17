@@ -1,5 +1,5 @@
-import AOS from 'aos';
-import 'aos/dist/aos.css'; 
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const ClassicShirtCard = () => {
   const shirts = [
@@ -24,7 +24,8 @@ const ClassicShirtCard = () => {
     <div className="px-6 py-6">
       <div className="flex flex-wrap justify-center gap-4">
         {shirts.map((shirt, index) => (
-          <div data-aos="fade-up" 
+          <div
+            data-aos="fade-up"
             key={index}
             className="relative w-full sm:w-[22rem] md:w-[26rem] lg:w-[30rem] group overflow-hidden shadow-md"
           >

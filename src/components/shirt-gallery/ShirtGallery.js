@@ -1,10 +1,10 @@
-"use client"
-import React from 'react';
-import ShirtImages from './ShirtImages';
-import { useRouter } from 'next/navigation';
+"use client";
+import React from "react";
+import ShirtImages from "./ShirtImages";
+import { useRouter } from "next/navigation";
 
 const ShirtGallery = () => {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <div
       data-aos="fade-right"

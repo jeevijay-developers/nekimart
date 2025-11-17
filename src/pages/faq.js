@@ -17,15 +17,27 @@ const Faq = () => {
   // Extract FAQs into a reusable list
   const faqs = Array.from({ length: 10 }, (_, index) => {
     const number = [
-      "one", "two", "three", "four", "five",
-      "six", "seven", "eight", "nine", "ten"
+      "one",
+      "two",
+      "three",
+      "four",
+      "five",
+      "six",
+      "seven",
+      "eight",
+      "nine",
+      "ten",
     ][index];
 
     const questionKey = `faq_${number}`;
     const answerKey = `description_${number}`;
 
-    const question = showingTranslateValue(storeCustomizationSetting?.faq?.[questionKey]);
-    const answer = showingTranslateValue(storeCustomizationSetting?.faq?.[answerKey]);
+    const question = showingTranslateValue(
+      storeCustomizationSetting?.faq?.[questionKey]
+    );
+    const answer = showingTranslateValue(
+      storeCustomizationSetting?.faq?.[answerKey]
+    );
 
     // Only return if both question and answer are present
     if (question && answer) {
@@ -57,7 +69,11 @@ const Faq = () => {
             {/* Right - FAQs */}
             <div>
               {faqs.map((faq, idx) => (
-                <Disclosure key={idx} as="div" className={idx !== 0 ? "mt-2" : ""}>
+                <Disclosure
+                  key={idx}
+                  as="div"
+                  className={idx !== 0 ? "mt-2" : ""}
+                >
                   {({ open }) => (
                     <>
                       <Disclosure.Button className="flex justify-between w-full px-4 py-3 text-base font-medium text-left text-gray-600 focus:text-emerald-500 bg-gray-50 hover:bg-emerald-50 rounded-lg focus:outline-none">

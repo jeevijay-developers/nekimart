@@ -20,7 +20,7 @@ const AddShippingAddress = () => {
     // cities,
     // areas,
     // zipCodes,
-   
+
     handleSubmit,
     selectedValue,
     isSubmitting,
