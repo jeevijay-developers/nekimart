@@ -1,6 +1,10 @@
 export default function ShirtImages() {
   return (
-    <div data-aos="fade-left" data-aos-duration="1000" className="relative w-full max-w-6xl mx-auto py-12 px-4">
+    <div
+      data-aos="fade-left"
+      data-aos-duration="1000"
+      className="relative w-full max-w-6xl mx-auto py-12 px-4"
+    >
       {/* Main Image Container */}
       <div className="relative h-[450px] sm:h-[450px] w-full">
         {/* Image 1 */}

@@ -15,12 +15,16 @@ import PageHeader from "@components/header/PageHeader";
 import CMSkeleton from "@components/preloader/CMSkeleton";
 import useUtilsFunction from "@hooks/useUtilsFunction";
 
-
 const ContactUs = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const { t } = useTranslation();
-  const { register, handleSubmit, formState: { errors }, reset} = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
   const { showingTranslateValue } = useUtilsFunction();
   const { storeCustomizationSetting, loading, error } = useGetSetting();
 
@@ -33,7 +37,7 @@ const ContactUs = () => {
       subject: data.subject,
       message: data.message,
     };
-  
+
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -42,7 +46,7 @@ const ContactUs = () => {
         },
         body: JSON.stringify(formData),
       });
-  
+
       const result = await res.json();
       if (result.success) {
         reset();
@@ -52,11 +56,10 @@ const ContactUs = () => {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-    }finally{
+    } finally {
       setIsSubmitting(false);
     }
   };
-  
 
   return (
     <Layout title="Contact Us" description="This is contact us page">
@@ -278,7 +281,9 @@ const ContactUs = () => {
                       data-variant="flat"
                       className="md:text-sm leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold text-center justify-center border-0 border-transparent rounded-md placeholder-white focus-visible:outline-none focus:outline-none bg-emerald-500 text-white px-5 md:px-6 lg:px-8 py-3 md:py-3.5 lg:py-3 hover:text-white hover:bg-emerald-600 h-12 mt-1 text-sm lg:text-base w-full sm:w-auto"
                     >
-                      {isSubmitting ? "Sending..." : t("common:contact-page-form-send-btn")}
+                      {isSubmitting
+                        ? "Sending..."
+                        : t("common:contact-page-form-send-btn")}
                     </button>
                   </div>
                 </div>

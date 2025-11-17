@@ -38,7 +38,7 @@ import ImageCarousel from "@components/carousel/ImageCarousel";
 // at the top of your file
 import dynamic from "next/dynamic";
 
-const InnerImageZoom = dynamic(() => import('react-inner-image-zoom'), {
+const InnerImageZoom = dynamic(() => import("react-inner-image-zoom"), {
   ssr: false,
 });
 

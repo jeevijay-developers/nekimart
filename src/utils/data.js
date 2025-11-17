@@ -20,7 +20,6 @@ import {
 } from "react-icons/fi";
 import { IoDocument } from "react-icons/io5";
 
-
 const pages = [
   {
     title: "Home",

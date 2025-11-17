@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useRef } from "react";
@@ -46,7 +46,7 @@ const CategoryCarousel = () => {
   //     return () => clearTimeout(timer);
   //   }
   // }, [data]);
-  
+
   // console.log("data", data, "error", error, "isFetched", isFetched);
 
   const handleCategoryClick = (id, category) => {

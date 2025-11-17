@@ -14,9 +14,7 @@ const DefaultSeo = () => {
         type: "website",
         locale: "en_IE",
         url: globalSetting?.meta_url || "https://www.nekimart.com/",
-        site_name:
-          globalSetting?.meta_title ||
-          "Nekimart ",
+        site_name: globalSetting?.meta_title || "Nekimart ",
       }}
       twitter={{
         handle: "@handle",
