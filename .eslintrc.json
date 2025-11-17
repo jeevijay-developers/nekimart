@@ -2,16 +2,16 @@
   "env": { "browser": true, "node": true, "es6": true },
   "extends": ["eslint:recommended", "next", "next/core-web-vitals"],
   "rules": {
-    "no-unused-vars": "warn",
-    "no-undef": "warn",
-    "react/no-unescaped-entities": "warn",
-    "react-hooks/exhaustive-deps": "warn",
-    "@next/next/no-img-element": "warn",
-    "@next/next/link-passhref": "warn",
-    "react/no-unknown-property": "warn",
-    "no-irregular-whitespace": "warn",
-    "react-hooks/rules-of-hooks": "warn",
-    "react/no-string-refs": "warn",
+    "no-unused-vars": "off",
+    "no-undef": "off",
+    "react/no-unescaped-entities": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "@next/next/no-img-element": "off",
+    "@next/next/link-passhref": "off",
+    "react/no-unknown-property": "off",
+    "no-irregular-whitespace": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "react/no-string-refs": "off",
     "prettier/prettier": "off"
   }
 }

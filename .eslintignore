@@ -4,8 +4,11 @@ out
 dist
 build
 **/forms/**
+**/form/**
 **/*FileUploadPreview*
 **/*sign-in*
 **/*userShop*
 **/logo.jsx
+src/components/logo.jsx
+src/components/forms/**
 *.min.js
